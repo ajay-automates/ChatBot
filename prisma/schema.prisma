@@ -1,0 +1,120 @@
+// prisma/schema.prisma
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id        String     @id @default(cuid())
+  email     String     @unique
+  password  String
+  name      String?
+  plan      String     @default("free")
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  
+  chatbots  Chatbot[]
+}
+
+model Chatbot {
+  id              String   @id @default(cuid())
+  userId          String
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  name            String
+  websiteUrl      String?
+  plan            String   @default("free")
+  slackWebhookUrl String?
+  
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  
+  kbDocuments     KBDocument[]
+  conversations   Conversation[]
+  analytics       ChatbotAnalytics[]
+  
+  @@index([userId])
+}
+
+model KBDocument {
+  id          String   @id @default(cuid())
+  chatbotId   String
+  chatbot     Chatbot  @relation(fields: [chatbotId], references: [id], onDelete: Cascade)
+  
+  title       String
+  content     String   @db.Text
+  sourceType  String   // 'manual', 'faq', 'docs', 'ticket'
+  vectorId    String?  // Pinecone vector ID
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  @@index([chatbotId])
+}
+
+model Conversation {
+  id          String   @id @default(cuid())
+  chatbotId   String
+  chatbot     Chatbot  @relation(fields: [chatbotId], references: [id], onDelete: Cascade)
+  
+  visitorId   String
+  startedAt   DateTime @default(now())
+  endedAt     DateTime?
+  sentiment   String?  // 'positive', 'neutral', 'negative'
+  escalated   Boolean  @default(false)
+  
+  messages    Message[]
+  
+  @@index([chatbotId])
+  @@index([visitorId])
+}
+
+model Message {
+  id              String   @id @default(cuid())
+  conversationId  String
+  conversation    Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  
+  author          String   // 'user', 'bot', 'human_agent'
+  content         String   @db.Text
+  metadata        Json?    // {tokens_used, confidence, matched_documents: []}
+  
+  createdAt       DateTime @default(now())
+  
+  feedback        MessageFeedback?
+  
+  @@index([conversationId])
+}
+
+model MessageFeedback {
+  id              String   @id @default(cuid())
+  messageId       String   @unique
+  message         Message  @relation(fields: [messageId], references: [id], onDelete: Cascade)
+  
+  rating          Int      // 1-5
+  feedbackText    String?  @db.Text
+  
+  createdAt       DateTime @default(now())
+}
+
+model ChatbotAnalytics {
+  id                      String   @id @default(cuid())
+  chatbotId               String
+  chatbot                 Chatbot  @relation(fields: [chatbotId], references: [id], onDelete: Cascade)
+  
+  date                    DateTime @default(now())
+  totalConversations      Int      @default(0)
+  totalMessages           Int      @default(0)
+  avgResponseTimeMs       Int      @default(0)
+  customerSatisfaction    Float    @default(0)
+  escalationRate          Float    @default(0)
+  
+  createdAt               DateTime @default(now())
+  updatedAt               DateTime @updatedAt
+  
+  @@index([chatbotId])
+  @@index([date])
+}

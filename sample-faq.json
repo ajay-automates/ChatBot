@@ -1,0 +1,42 @@
+[
+  {
+    "question": "How do I reset my password?",
+    "answer": "To reset your password, go to the login page and click 'Forgot Password'. You'll receive an email with a reset link. Click the link and follow the instructions to create a new password."
+  },
+  {
+    "question": "What payment methods do you accept?",
+    "answer": "We accept all major credit cards (Visa, Mastercard, American Express), PayPal, and bank transfers for Business plans. All payments are processed securely."
+  },
+  {
+    "question": "Can I cancel my subscription anytime?",
+    "answer": "Yes! You can cancel your subscription at any time from your account settings. You'll have access until the end of your current billing period."
+  },
+  {
+    "question": "Is there a free trial?",
+    "answer": "Yes, we offer a free tier with up to 100 conversations per month. You can also start a 14-day free trial of our Pro plan without needing a credit card."
+  },
+  {
+    "question": "How many chatbots can I create?",
+    "answer": "On the Free plan, you can create up to 3 chatbots. Pro and Business plans have unlimited chatbots."
+  },
+  {
+    "question": "What file formats can I upload for the knowledge base?",
+    "answer": "You can upload JSON, CSV, or Markdown files. JSON and CSV should have 'question' and 'answer' fields. Markdown files are split by ## headers."
+  },
+  {
+    "question": "How does the Slack integration work?",
+    "answer": "When your chatbot can't answer a question or detects a complex issue, it automatically sends a message to your Slack channel. You can then follow up with the customer."
+  },
+  {
+    "question": "Can I customize the chatbot appearance?",
+    "answer": "Yes! You can customize colors, position, greeting message, and more in the dashboard settings. Premium plans include full white-labeling."
+  },
+  {
+    "question": "How many conversations is included in each plan?",
+    "answer": "Free: 100 conversations/month, Pro: 5,000 conversations/month, Business: Unlimited conversations. A conversation includes multiple messages from the same visitor."
+  },
+  {
+    "question": "Do you offer API access?",
+    "answer": "Yes, all plans include API access for developers. Full API documentation is available in your dashboard. Contact us for custom API needs."
+  }
+]
