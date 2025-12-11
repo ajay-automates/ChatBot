@@ -1,0 +1,11 @@
+Q: What is SupportBot?
+A: SupportBot is an AI-powered customer support chatbot that helps businesses automate their customer service. It uses advanced natural language processing to understand customer questions and provide accurate answers based on your knowledge base.
+
+Q: How does the RAG system work?
+A: RAG (Retrieval-Augmented Generation) combines information retrieval with AI generation. When a user asks a question, the system searches your knowledge base for relevant information, then uses that context to generate an accurate, personalized response.
+
+Q: Can I customize the chatbot's responses?
+A: Yes! You can upload your own FAQ documents, customize the bot's personality, and configure when it should escalate to human support. The chatbot learns from your knowledge base to provide answers specific to your business.
+
+Q: What integrations are available?
+A: We currently support Slack integration for escalations, and we're working on adding support for Intercom, Zendesk, and other popular customer service platforms. You can also use our API for custom integrations.
